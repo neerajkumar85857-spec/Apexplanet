@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 2 - Intermediate HTML CSS JS</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f9f9;
+            margin: 0;
+        }
+
+        header {
+            background: #2c7a7b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Flexbox Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: #225e61;
+            padding: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Grid Layout */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #2c7a7b;
+        }
+
+        /* Form */
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            background: #2c7a7b;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #225e61;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        /* To-Do */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #e6fffa;
+            margin-top: 10px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        li button {
+            width: auto;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Intermediate HTML, CSS & JavaScript</h1>
+    <p>Task - 2</p>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Form</a>
+    <a href="#">To-Do</a>
+</nav>
+
+<div class="container">
+
+    <!-- Contact Form -->
+    <div class="box">
+        <h2>Contact Form</h2>
+        <p id="error" class="error"></p>
+
+        <input type="text" id="name" placeholder="Enter your name">
+        <input type="email" id="email" placeholder="Enter your email">
+        <button onclick="validateForm()">Submit</button>
+    </div>
+
+    <!-- To-Do List -->
+    <div class="box">
+        <h2>To-Do List</h2>
+        <input type="text" id="task" placeholder="Enter task">
+        <button onclick="addTask()">Add Task</button>
+        <ul id="taskList"></ul>
+    </div>
+
+</div>
+
+<script>
+    /* Form Validation */
+    function validateForm() {
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let error = document.getElementById("error");
+
+        if (name === "" || email === "") {
+            error.innerText = "All fields are required!";
+            return;
+        }
+
+        let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if (!email.match(emailPattern)) {
+            error.innerText = "Invalid email format!";
+            return;
+        }
+
+        error.innerText = "";
+        alert("Form submitted successfully 🎉");
+    }
+
+    /* To-Do List */
+    function addTask() {
+        let task = document.getElementById("task").value;
+        if (task === "") return;
+
+        let li = document.createElement("li");
+        li.innerHTML = task + 
+            `<button onclick="this.parentElement.remove()">Delete</button>`;
+
+        document.getElementById("taskList").appendChild(li);
+        document.getElementById("task").value = "";
+    }
+</script>
+
+</body>
+</html>
