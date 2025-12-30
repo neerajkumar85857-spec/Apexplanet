@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 3 - Advanced Styling & JavaScript</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f9f9;
+        }
+
+        header {
+            background: #2c7a7b;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #2c7a7b;
+        }
+
+        button {
+            background: #2c7a7b;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #225e61;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Advanced Styling & JavaScript</h1>
+    <p>Task - 3</p>
+</header>
+
+<div class="container">
+
+    <!-- QUIZ -->
+    <div class="card">
+        <h2>JavaScript Quiz</h2>
+        <p id="question">What does HTML stand for?</p>
+
+        <button onclick="checkAnswer('wrong')">HighText Machine Language</button>
+        <button onclick="checkAnswer('correct')">HyperText Markup Language</button>
+        <button onclick="checkAnswer('wrong')">Hyperlinks Text Mark</button>
+
+        <p id="result"></p>
+    </div>
+
+    <!-- IMAGE CAROUSEL -->
+    <div class="card">
+        <h2>Image Carousel</h2>
+        <img id="carousel" src="https://via.placeholder.com/250"
+             width="100%">
+        <button onclick="nextImage()">Next Image</button>
+    </div>
+
+    <!-- API FETCH -->
+    <div class="card">
+        <h2>API Data (Joke)</h2>
+        <p id="joke">Click button to load joke</p>
+        <button onclick="loadJoke()">Fetch Joke</button>
+    </div>
+
+</div>
+
+<script>
+    /* QUIZ */
+    function checkAnswer(answer) {
+        let result = document.getElementById("result");
+        if (answer === "correct") {
+            result.innerText = "Correct Answer 🎉";
+            result.style.color = "green";
+        } else {
+            result.innerText = "Wrong Answer ❌";
+            result.style.color = "red";
+        }
+    }
+
+    /* IMAGE CAROUSEL */
+    let images = [
+        "https://via.placeholder.com/250/2c7a7b",
+        "https://via.placeholder.com/250/225e61",
+        "https://via.placeholder.com/250/88c0d0"
+    ];
+    let index = 0;
+
+    function nextImage() {
+        index = (index + 1) % images.length;
+        document.getElementById("carousel").src = images[index];
+    }
+
+    /* API FETCH */
+    function loadJoke() {
+        fetch("https://official-joke-api.appspot.com/random_joke")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("joke").innerText =
+                    data.setup + " 🤣 " + data.punchline;
+            })
+            .catch(() => {
+                document.getElementById("joke").innerText =
+                    "Error loading joke";
+            });
+    }
+</script>
+
+</body>
+</html>
