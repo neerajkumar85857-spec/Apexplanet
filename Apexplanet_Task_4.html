@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Task 4 - Full Project</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f4f9f9;
+}
+header {
+    background: #2c7a7b;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+section {
+    padding: 20px;
+}
+.card {
+    background: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+button {
+    background: #2c7a7b;
+    color: white;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+input, select {
+    padding: 8px;
+    margin-top: 5px;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+li {
+    background: #e6fffa;
+    padding: 8px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>My Portfolio</h1>
+<p>Task - 4</p>
+</header>
+
+<section>
+
+<!-- ABOUT -->
+<div class="card">
+<h2>About Me</h2>
+<p>I am learning HTML, CSS and JavaScript.</p>
+</div>
+
+<!-- TO-DO -->
+<div class="card">
+<h2>To-Do List (Local Storage)</h2>
+<input type="text" id="todoInput" placeholder="Enter task">
+<button onclick="addTodo()">Add</button>
+<ul id="todoList"></ul>
+</div>
+
+<!-- PRODUCTS -->
+<div class="card">
+<h2>Product Listing</h2>
+<select onchange="filterProducts(this.value)">
+<option value="all">All</option>
+<option value="low">Low Price</option>
+<option value="high">High Price</option>
+</select>
+<ul id="products"></ul>
+</div>
+
+</section>
+
+<script>
+/* TO-DO WITH LOCAL STORAGE */
+let todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+function renderTodos() {
+    let list = document.getElementById("todoList");
+    list.innerHTML = "";
+    todos.forEach((t, i) => {
+        list.innerHTML += `<li>${t}
+        <button onclick="removeTodo(${i})">X</button></li>`;
+    });
+    localStorage.setItem("todos", JSON.stringify(todos));
+}
+function addTodo() {
+    let input = document.getElementById("todoInput");
+    if(input.value==="") return;
+    todos.push(input.value);
+    input.value="";
+    renderTodos();
+}
+function removeTodo(i) {
+    todos.splice(i,1);
+    renderTodos();
+}
+renderTodos();
+
+/* PRODUCT FILTER */
+let products = [
+    {name:"Laptop", price:50000},
+    {name:"Mouse", price:500},
+    {name:"Mobile", price:20000}
+];
+
+function showProducts(list){
+    let ul = document.getElementById("products");
+    ul.innerHTML="";
+    list.forEach(p=>{
+        ul.innerHTML += `<li>${p.name} - ₹${p.price}</li>`;
+    });
+}
+function filterProducts(type){
+    if(type==="low")
+        showProducts(products.filter(p=>p.price<10000));
+    else if(type==="high")
+        showProducts(products.filter(p=>p.price>=10000));
+    else
+        showProducts(products);
+}
+showProducts(products);
+</script>
+
+</body>
+</html>
