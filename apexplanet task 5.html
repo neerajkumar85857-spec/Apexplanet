@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Task 5 - Final Project</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f4f9f9;
+}
+header {
+    background: #2c7a7b;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.container {
+    padding: 20px;
+}
+.card {
+    background: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+button {
+    background: #2c7a7b;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+img {
+    width: 100%;
+    max-width: 300px;
+    loading: lazy;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Final Web Application</h1>
+<p>Task - 5</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Optimized Counter App</h2>
+<p id="count">0</p>
+<button onclick="inc()">+</button>
+<button onclick="dec()">-</button>
+</div>
+
+<div class="card">
+<h2>Lazy Loaded Image</h2>
+<img src="https://via.placeholder.com/300">
+</div>
+
+</div>
+
+<script>
+let c = 0;
+const countEl = document.getElementById("count");
+
+function inc(){
+    countEl.innerText = ++c;
+}
+function dec(){
+    countEl.innerText = --c;
+}
+</script>
+
+</body>
+</html>
